@@ -2,11 +2,9 @@
 
 This `README.md` contains a set of checklists for our audit collaboration.
 
-Your audit will use two repos: 
-- **an _audit_ repo** (this one), which is used for scoping your audit and for providing information to wardens
-- **a _findings_ repo**, where issues are submitted (shared with you after the audit) 
+Your audit will use this audit repo, which is used for scoping your audit and for providing information to wardens.
 
-Ultimately, when we launch the audit, this repo will be made public and will contain the smart contracts to be reviewed and all the information needed for audit participants. The findings repo will be made public after the audit report is published and your team has mitigated the identified issues.
+Ultimately, when we launch the audit, this repo will be made public and will contain the smart contracts to be reviewed and all the information needed for audit participants. The findings of your audit will be made public after the audit report is published and your team has mitigated the identified issues.
 
 Some of the checklists in this doc are for **C4 (🐺)** and some of them are for **you as the audit sponsor (⭐️)**.
 
@@ -15,16 +13,10 @@ Some of the checklists in this doc are for **C4 (🐺)** and some of them are fo
 # Audit setup
 
 ## 🐺 C4: Set up repos
-- [ ] Create a new private repo named `YYYY-MM-sponsorname` using this repo as a template.
-- [ ] Rename this repo to reflect audit date (if applicable)
 - [ ] Rename audit H1 below
-- [ ] Update pot sizes
-  - [ ] Remove the "Bot race findings opt out" section if there's no bot race.
-- [ ] Fill in start and end times in audit bullets below
 - [ ] Add link to submission form in audit details below
 - [ ] Add the information from the scoping form to the "Scoping Details" section at the bottom of this readme.
 - [ ] Add matching info to the Code4rena site
-- [ ] Add sponsor to this private repo with 'maintain' level access.
 - [ ] Send the sponsor contact the url for this repo to follow the instructions below and add contracts here. 
 - [ ] Delete this checklist.
 
