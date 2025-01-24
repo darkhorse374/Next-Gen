@@ -1,0 +1,6 @@
+./contracts/ERC20AdminUpgradeable.sol
+./contracts/ERC20ControlerMinterUpgradeable.sol
+./contracts/ERC20MetaTxUpgradeable.sol
+./contracts/Forwarder.sol
+./contracts/Token.sol
+./contracts/FeesHandlerUpgradeable.sol
