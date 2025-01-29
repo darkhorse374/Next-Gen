@@ -55,7 +55,7 @@ The contracts use OpenZeppelin's **UUPSUpgradeable** pattern, which provides upg
 ## Links
 
 - **Previous audits:**  N/A
-- **Documentation:** https://drive.google.com/file/d/1VUANWsOjzKbkMDn5pB2gseK2wlYgw0r8/view?usp=sharing
+- **Documentation:** [Docs PDF](https://drive.google.com/file/d/1VUANWsOjzKbkMDn5pB2gseK2wlYgw0r8/view?usp=sharing)
 - **Website:** https://ngpes.com/
 
 
@@ -156,12 +156,10 @@ npx hardhat test
 ```
 To run code coverage
 ```bash
-make coverage
+npx hardhat coverage
 ```
-To run gas benchmarks
-```bash
-make gas
-```
+
+### Coverage table
 
 File                                  |  % Stmts | % Branch |  % Funcs |  % Lines |Uncovered Lines |
 --------------------------------------|----------|----------|----------|----------|----------------|
