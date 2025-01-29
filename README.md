@@ -25,191 +25,41 @@ The 4naly3er report can be found [here](https://github.com/code-423n4/2025-01-ne
 
 _Note for C4 wardens: Anything included in this `Automated Findings / Publicly Known Issues` section is considered a publicly known issue and is ineligible for awards._
 
-✅ SCOUTS: Please format the response above 👆 so its not a wall of text and its readable.
 
 # Overview
 
-[ ⭐️ SPONSORS: add info here ]
+
+## Contracts
+
+### Token.sol
+The **Token** contract is the main ERC20 implementation of EURF. 
+
+### Forwarder.sol
+The **Forwarder** contract is designed to support gasless transactions. It forwards signed transactions that are executed on-chain, allowing users to interact with the EURF token without having to pay gas fees directly. This feature is especially useful for improving user experience and onboarding new users by abstracting the complexities of paying for gas.
+
+### FeesHandlerUpgradeable.sol
+The **FeesHandlerUpgradeable** contract manages the fee mechanisms for EURF. There are two types of fees: the **transaction fee (txfee_rate)** and the **gasless base fee**. The transaction fee is applied to every transfer, while the gasless base fee is used when transactions are forwarded by trusted forwarders. This contract ensures that fees are collected properly and the EURF ecosystem remains compliant.
+
+### ERC20MetaTxUpgradeable.sol
+The **ERC20MetaTxUpgradeable** contract extends the basic ERC20 functionality by adding support for meta-transactions. It allows users to sign approvals and other transactions off-chain, which can be forwarded by another party on-chain. This approach enables gasless transactions, where the transaction costs are borne by a different party (e.g., the dApp or the protocol).
+
+### ERC20ControlerMinterUpgradeable.sol
+The **ERC20ControlerMinterUpgradeable** contract manages minting permissions in a controlled manner. It allows the administrator to add or remove minters and to set minting limits, ensuring that the supply of EURF remains within predefined bounds. This contract helps enforce governance policies over token minting.
+
+### ERC20AdminUpgradeable.sol
+The **ERC20AdminUpgradeable** contract handles administrative functions for the EURF token. It allows for assigning administrative roles, controlling fees, managing blacklists, and overseeing upgrades of other contracts in the system. The use of upgradeable patterns ensures that the contract can be securely updated as needed.
+
+
+The contracts use OpenZeppelin's **UUPSUpgradeable** pattern, which provides upgradability through proxies, allowing for future modifications without redeploying the entire contract.
 
 ## Links
 
-- **Previous audits:**  
-  - ✅ SCOUTS: If there are multiple report links, please format them in a list.
+- **Previous audits:**  N/A
 - **Documentation:** https://drive.google.com/file/d/1VUANWsOjzKbkMDn5pB2gseK2wlYgw0r8/view?usp=sharing
 - **Website:** https://ngpes.com/
 
 
 ---
-
-# Scope
-
-[ ✅ SCOUTS: add scoping and technical details here ]
-
-### Files in scope
-- ✅ This should be completed using the `metrics.md` file
-- ✅ Last row of the table should be Total: SLOC
-- ✅ SCOUTS: Have the sponsor review and and confirm in text the details in the section titled "Scoping Q amp; A"
-
-*For sponsors that don't use the scoping tool: list all files in scope in the table below (along with hyperlinks) -- and feel free to add notes to emphasize areas of focus.*
-
-| Contract | SLOC | Purpose | Libraries used |  
-| ----------- | ----------- | ----------- | ----------- |
-| [contracts/folder/sample.sol](https://github.com/code-423n4/repo-name/blob/contracts/folder/sample.sol) | 123 | This contract does XYZ | [`@openzeppelin/*`](https://openzeppelin.com/contracts/) |
-
-### Files out of scope
-✅ SCOUTS: List files/directories out of scope
-
-## Scoping Q &amp; A
-
-### General questions
-### Are there any ERC20's in scope?: No
-
-✅ SCOUTS: If the answer above 👆 is "Yes", please add the tokens below 👇 to the table. Otherwise, update the column with "None".
-
-
-
-
-### Are there any ERC777's in scope?: 
-
-✅ SCOUTS: If the answer above 👆 is "Yes", please add the tokens below 👇 to the table. Otherwise, update the column with "None".
-
-
-
-### Are there any ERC721's in scope?: No
-
-✅ SCOUTS: If the answer above 👆 is "Yes", please add the tokens below 👇 to the table. Otherwise, update the column with "None".
-
-
-
-### Are there any ERC1155's in scope?: No
-
-✅ SCOUTS: If the answer above 👆 is "Yes", please add the tokens below 👇 to the table. Otherwise, update the column with "None".
-
-
-
-✅ SCOUTS: Once done populating the table below, please remove all the Q/A data above.
-
-| Question                                | Answer                       |
-| --------------------------------------- | ---------------------------- |
-| ERC20 used by the protocol              |       🖊️             |
-| Test coverage                           | ✅ SCOUTS: Please populate this after running the test coverage command                          |
-| ERC721 used  by the protocol            |            🖊️              |
-| ERC777 used by the protocol             |           🖊️                |
-| ERC1155 used by the protocol            |              🖊️            |
-| Chains the protocol will be deployed on | Ethereum,Polygon |
-
-### ERC20 token behaviors in scope
-
-| Question                                                                                                                                                   | Answer |
-| ---------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ |
-| [Missing return values](https://github.com/d-xo/weird-erc20?tab=readme-ov-file#missing-return-values)                                                      |    |
-| [Fee on transfer](https://github.com/d-xo/weird-erc20?tab=readme-ov-file#fee-on-transfer)                                                                  |   |
-| [Balance changes outside of transfers](https://github.com/d-xo/weird-erc20?tab=readme-ov-file#balance-modifications-outside-of-transfers-rebasingairdrops) |    |
-| [Upgradeability](https://github.com/d-xo/weird-erc20?tab=readme-ov-file#upgradable-tokens)                                                                 |    |
-| [Flash minting](https://github.com/d-xo/weird-erc20?tab=readme-ov-file#flash-mintable-tokens)                                                              |    |
-| [Pausability](https://github.com/d-xo/weird-erc20?tab=readme-ov-file#pausable-tokens)                                                                      |    |
-| [Approval race protections](https://github.com/d-xo/weird-erc20?tab=readme-ov-file#approval-race-protections)                                              |    |
-| [Revert on approval to zero address](https://github.com/d-xo/weird-erc20?tab=readme-ov-file#revert-on-approval-to-zero-address)                            |    |
-| [Revert on zero value approvals](https://github.com/d-xo/weird-erc20?tab=readme-ov-file#revert-on-zero-value-approvals)                                    |    |
-| [Revert on zero value transfers](https://github.com/d-xo/weird-erc20?tab=readme-ov-file#revert-on-zero-value-transfers)                                    |    |
-| [Revert on transfer to the zero address](https://github.com/d-xo/weird-erc20?tab=readme-ov-file#revert-on-transfer-to-the-zero-address)                    |    |
-| [Revert on large approvals and/or transfers](https://github.com/d-xo/weird-erc20?tab=readme-ov-file#revert-on-large-approvals--transfers)                  |    |
-| [Doesn't revert on failure](https://github.com/d-xo/weird-erc20?tab=readme-ov-file#no-revert-on-failure)                                                   |    |
-| [Multiple token addresses](https://github.com/d-xo/weird-erc20?tab=readme-ov-file#revert-on-zero-value-transfers)                                          |    |
-| [Low decimals ( < 6)](https://github.com/d-xo/weird-erc20?tab=readme-ov-file#low-decimals)                                                                 |    |
-| [High decimals ( > 18)](https://github.com/d-xo/weird-erc20?tab=readme-ov-file#high-decimals)                                                              |    |
-| [Blocklists](https://github.com/d-xo/weird-erc20?tab=readme-ov-file#tokens-with-blocklists)                                                                |    |
-
-### External integrations (e.g., Uniswap) behavior in scope:
-
-
-| Question                                                  | Answer |
-| --------------------------------------------------------- | ------ |
-| Enabling/disabling fees (e.g. Blur disables/enables fees) | No   |
-| Pausability (e.g. Uniswap pool gets paused)               |  No   |
-| Upgradeability (e.g. Uniswap gets upgraded)               |   No  |
-
-
-### EIP compliance checklist
-ERC20, EIP-1967, ERC2771, EIP-3009 - See attached pdf with smart contract specification for details
-
-✅ SCOUTS: Please format the response above 👆 using the template below👇
-
-| Question                                | Answer                       |
-| --------------------------------------- | ---------------------------- |
-| src/Token.sol                           | ERC20, ERC721                |
-| src/NFT.sol                             | ERC721                       |
-
-
-# Additional context
-
-## Main invariants
-
-See readme and shared specification.
-
-✅ SCOUTS: Please format the response above 👆 so its not a wall of text and its readable.
-
-## Attack ideas (where to focus for bugs)
-None
-
-✅ SCOUTS: Please format the response above 👆 so its not a wall of text and its readable.
-
-## All trusted roles in the protocol
-
-OWNER
-ADMIN
-MASTER_MINTER
-MINTER
-CONTROLLER
-
-For details see attached pdf with smart contract specification for details
-
-✅ SCOUTS: Please format the response above 👆 using the template below👇
-
-| Role                                | Description                       |
-| --------------------------------------- | ---------------------------- |
-| Owner                          | Has superpowers                |
-| Administrator                             | Can change fees                       |
-
-## Describe any novel or unique curve logic or mathematical models implemented in the contracts:
-
-N/A
-
-✅ SCOUTS: Please format the response above 👆 so its not a wall of text and its readable.
-
-## Running tests
-
-Please see README.md within repository.
-
-✅ SCOUTS: Please format the response above 👆 using the template below👇
-
-```bash
-git clone https://github.com/code-423n4/2023-08-arbitrum
-git submodule update --init --recursive
-cd governance
-foundryup
-make install
-make build
-make sc-election-test
-```
-To run code coverage
-```bash
-make coverage
-```
-To run gas benchmarks
-```bash
-make gas
-```
-
-✅ SCOUTS: Add a screenshot of your terminal showing the gas report
-✅ SCOUTS: Add a screenshot of your terminal showing the test coverage
-
-## Miscellaneous
-Employees of Next Generation and employees' family members are ineligible to participate in this audit.
-
-Code4rena's rules cannot be overridden by the contents of this README. In case of doubt, please check with C4 staff.
-
-
 
 
 # Scope
@@ -233,7 +83,101 @@ Code4rena's rules cannot be overridden by the contents of this README. In case o
 
 *See [out_of_scope.txt](https://github.com/code-423n4/2025-01-next-generation/blob/main/out_of_scope.txt)*
 
-| File         |
-| ------------ |
-| Totals: 0 |
+## Scoping Q &amp; A
+
+### General questions
+
+| Question                                | Answer                       |
+| --------------------------------------- | ---------------------------- |
+| ERC20 used by the protocol              |       None             |
+| Test coverage                           |   79.76% of statements                          |
+| ERC721 used  by the protocol            |            None              |
+| ERC777 used by the protocol             |           None                |
+| ERC1155 used by the protocol            |              None            |
+| Chains the protocol will be deployed on | Ethereum,Polygon |
+
+
+### External integrations (e.g., Uniswap) behavior in scope:
+
+
+| Question                                                  | Answer |
+| --------------------------------------------------------- | ------ |
+| Enabling/disabling fees (e.g. Blur disables/enables fees) | No   |
+| Pausability (e.g. Uniswap pool gets paused)               |  No   |
+| Upgradeability (e.g. Uniswap gets upgraded)               |   No  |
+
+
+### EIP compliance checklist
+ERC20, EIP-1967, ERC2771, EIP-3009 - See attached pdf with smart contract specification for details
+
+
+# Additional context
+
+## Main invariants
+N/A
+
+## Attack ideas (where to focus for bugs)
+N/A
+
+
+## All trusted roles in the protocol
+
+
+
+For details see [the docs PDF](https://drive.google.com/file/d/1VUANWsOjzKbkMDn5pB2gseK2wlYgw0r8/view)
+
+| Role                                | Description                       |
+| --------------------------------------- | ---------------------------- |
+| OWNER           |    |
+| ADMIN           |    |
+| MASTER_MINTER   |    |
+| MINTER          |    |
+| CONTROLLER      |    |
+
+
+## Describe any novel or unique curve logic or mathematical models implemented in the contracts:
+
+N/A
+
+
+## Running tests
+
+
+For more details see also [this README](https://github.com/code-423n4/2025-01-next-generation/blob/main/README-sponsor.md)
+
+```bash
+git clone https://github.com/code-423n4/2025-01-next-generation.git
+cd 2025-01-next-generation
+npm i
+cp env.example .env
+# then fill out the PRIVATE_KEY field with a private key (e.g. "0x147a7588690ee8057fd46ca3accaa7eb96f980ba168b53ab0cbb5d6ed143bf33")
+
+npx hardhat test
+```
+To run code coverage
+```bash
+make coverage
+```
+To run gas benchmarks
+```bash
+make gas
+```
+
+File                                  |  % Stmts | % Branch |  % Funcs |  % Lines |Uncovered Lines |
+--------------------------------------|----------|----------|----------|----------|----------------|
+ contracts/                           |    79.76 |    65.63 |    75.34 |    82.56 |                |
+  ERC20AdminUpgradeable.sol           |    78.26 |    80.77 |    83.33 |    79.17 | 24,25,26,27,40 |
+  ERC20ControlerMinterUpgradeable.sol |    82.05 |       80 |    66.67 |    86.54 |... 48,52,56,98 |
+  ERC20MetaTxUpgradeable.sol          |    73.08 |    55.56 |    72.73 |    78.79 |... 148,149,151 |
+  FeesHandlerUpgradeable.sol          |     87.5 |    33.33 |    83.33 |    90.91 |             45 |
+  Forwarder.sol                       |    63.64 |    54.55 |    63.64 |    68.42 |... 131,134,135 |
+  Token.sol                           |    94.87 |    57.69 |    83.33 |    94.59 |         69,100 |
+All files                             |    79.76 |    65.63 |    75.34 |    82.56 |                |
+
+## Miscellaneous
+Employees of Next Generation and employees' family members are ineligible to participate in this audit.
+
+Code4rena's rules cannot be overridden by the contents of this README. In case of doubt, please check with C4 staff.
+
+
 
