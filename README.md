@@ -71,11 +71,11 @@ The contracts use OpenZeppelin's **UUPSUpgradeable** pattern, which provides upg
 
 | File   | Logic Contracts | Interfaces | nSLOC | Purpose | Libraries used |
 | ------ | --------------- | ---------- | ----- | -----   | ------------ |
-| /contracts/ERC20AdminUpgradeable.sol | 1| **** | 64 | |@openzeppelin/contracts-upgradeable/access/extensions/AccessControlEnumerableUpgradeable.sol<br>@openzeppelin/contracts-upgradeable/utils/PausableUpgradeable.sol<br>@openzeppelin/contracts-upgradeable/token/ERC20/ERC20Upgradeable.sol|
-| /contracts/ERC20ControlerMinterUpgradeable.sol | 1| **** | 107 | |@openzeppelin/contracts-upgradeable/access/extensions/AccessControlEnumerableUpgradeable.sol<br>@openzeppelin/contracts-upgradeable/token/ERC20/ERC20Upgradeable.sol|
-| /contracts/ERC20MetaTxUpgradeable.sol | 1| **** | 79 | |@openzeppelin/contracts-upgradeable/utils/cryptography/EIP712Upgradeable.sol<br>@openzeppelin/contracts/utils/cryptography/ECDSA.sol<br>@openzeppelin/contracts-upgradeable/token/ERC20/ERC20Upgradeable.sol|
-| /contracts/Forwarder.sol | 1| **** | 92 | |@openzeppelin/contracts/utils/cryptography/ECDSA.sol<br>@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol|
-| /contracts/Token.sol | 1| **** | 92 | |@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol<br>@openzeppelin/contracts-upgradeable/utils/ContextUpgradeable.sol|
+| /contracts/ERC20AdminUpgradeable.sol | 1| **** | 64 | |@openzeppelin/contracts-upgradeable/access/extensions/AccessControlEnumerableUpgradeable.sol, @openzeppelin/contracts-upgradeable/utils/PausableUpgradeable.sol, @openzeppelin/contracts-upgradeable/token/ERC20/ERC20Upgradeable.sol|
+| /contracts/ERC20ControlerMinterUpgradeable.sol | 1| **** | 107 | |@openzeppelin/contracts-upgradeable/access/extensions/AccessControlEnumerableUpgradeable.sol, @openzeppelin/contracts-upgradeable/token/ERC20/ERC20Upgradeable.sol|
+| /contracts/ERC20MetaTxUpgradeable.sol | 1| **** | 79 | |@openzeppelin/contracts-upgradeable/utils/cryptography/EIP712Upgradeable.sol, @openzeppelin/contracts/utils/cryptography/ECDSA.sol, @openzeppelin/contracts-upgradeable/token/ERC20/ERC20Upgradeable.sol|
+| /contracts/Forwarder.sol | 1| **** | 92 | |@openzeppelin/contracts/utils/cryptography/ECDSA.sol, @openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol|
+| /contracts/Token.sol | 1| **** | 92 | |@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol, @openzeppelin/contracts-upgradeable/utils/ContextUpgradeable.sol|
 | /contracts/FeesHandlerUpgradeable.sol | 1| **** | 38 | |@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol|
 | **Totals** | **6** | **** | **472** | | |
 
